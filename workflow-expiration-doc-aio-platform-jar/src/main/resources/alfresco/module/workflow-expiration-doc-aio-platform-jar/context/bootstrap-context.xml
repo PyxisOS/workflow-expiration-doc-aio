@@ -21,18 +21,30 @@
             <list>
                 <props>
                     <prop key="engineId">activiti</prop>
-                    <prop key="location">alfresco/module/${project.artifactId}/workflow/HelloWorld.bpmn</prop>
+                    <prop key="location">alfresco/module/${project.artifactId}/workflow/WorkflowExpiration.bpmn</prop>
                     <prop key="mimetype">text/xml</prop>
-                    <prop key="redeploy">false</prop>
+                    <prop key="redeploy">true</prop>
                 </props>
-                <props>
+                 <props>
                     <prop key="engineId">activiti</prop>
-                    <prop key="location">alfresco/module/${project.artifactId}/workflow/HelloWorldFork.bpmn</prop>
+                    <prop key="location">alfresco/module/${project.artifactId}/workflow/WorkflowPostaInArrivo.bpmn</prop>
                     <prop key="mimetype">text/xml</prop>
-                    <prop key="redeploy">false</prop>
+                    <prop key="redeploy">true</prop>
                 </props>
             </list>
         </property>
+        
+        <property name="models">
+	        <list>
+	            <value>alfresco/module/${project.artifactId}/model/gsWorkflowExpirationModel.xml</value>
+	            <value>alfresco/module/${project.artifactId}/model/pyxModelWorkflow.xml</value>
+	        </list>
+	    </property>
+	    <property name="labels">
+	        <list>
+	            <value>alfresco.module.${project.artifactId}.messages.gsWorkflowExpirationMessages</value>
+	            <value>alfresco.module.${project.artifactId}.messages.pyxWorkflowMessage</value>
+	        </list>
+	    </property>
     </bean>
-
 </beans>

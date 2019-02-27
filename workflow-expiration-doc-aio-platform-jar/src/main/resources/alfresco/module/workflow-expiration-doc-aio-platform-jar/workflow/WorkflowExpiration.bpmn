@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://alfresco.org">
+  <process id="WorkflowExpiration" name="WorkflowExpirationDocument" isExecutable="true">
+    <extensionElements>
+      <activiti:executionListener event="start" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+        <activiti:field name="script">
+          <activiti:string><![CDATA[execution.setVariable('wf_approveCount', 0);
+                        execution.setVariable('wf_rejectCount', 0);
+                       	execution.setVariable('wf_actualPercent', 0);
+                        execution.setVariable('wf_actualRejectPercent', 0);
+                        //modifica, la setto a 100
+                       
+                        execution.setVariable('wf_requiredApprovePercent', 100);
+                       	execution.setVariable('wf_requiredPercent', wf_requiredApprovePercent);]]></activiti:string>
+        </activiti:field>
+      </activiti:executionListener>
+   
+    
+    <activiti:executionListener event="take" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+        <activiti:field name="script">
+          <activiti:string><![CDATA[execution.setVariable(bpm_sendEMailNotifications, true);]]></activiti:string>
+        </activiti:field>
+      </activiti:executionListener>
+    </extensionElements>
+    
+     <startEvent id="start" activiti:formKey="gswe:startWorkflowExpiration">
+     </startEvent>
+     
+     
+     <sequenceFlow id="flow1" sourceRef="start" targetRef="reviewTask">
+      <extensionElements>
+        <activiti:executionListener event="complete" class="org.alfresco.repo.workflow.activiti.listener.ScriptExecutionListener">
+          <activiti:field name="script">
+            <activiti:string><![CDATA[
+        		 
+          			//inviamo l'email di notifica ai membri del gruppo 
+          			bpm_sendEMailNotifications = true;
+        			execution.setVariable('bpm_sendEMailNotifications', bpm_sendEMailNotifications);
+        			
+        			
+        			//RECUPERO MEMBRI E LORO PROPIETA'
+        			//array dei nomi
+					var memberNames = new java.util.ArrayList();
+					//array delle emails
+	                var membersEmail = new java.util.HashMap();
+	                
+					for (var i=0; i< bpm_groupAssignees.size(); i++){
+            			var memberGroup = people.getMembers(bpm_groupAssignees.get(i));
+            			//logger.log("Gruppo: " + bpm_groupAssignees.get(i).properties["cm:name"]);
+            		        			
+            			for(var j in memberGroup){
+            				//logger.log("Nome Membro: " + memberGroup[j].properties.userName);
+            				
+            				memberNames.add(memberGroup[j].properties.userName);
+					    	var userName = (memberGroup[j].properties.userName).toString();
+					    	var email = memberGroup[j].properties.email;
+	                    	membersEmail[userName] = String(memberGroup[j].properties.email);
+	                    	//logger.log("Membro-email " + membersEmail[userName]);
+            			}
+            		}
+            		
+					
+					if(workflow.maxGroupReviewers > 0 && members.length > workflow.maxGroupReviewers){
+					   throw new Error("Number of reviewers exceeds the maximum: " + members.length + "(max is " + workflow.maxGroupReviewers + ")");
+					}
+	                     
+					execution.setVariable("membersEmail", membersEmail);
+					execution.setVariable('wf_groupMembers', memberNames);
+					execution.setVariable('wf_reviewerCount', memberNames.size());
+					
+	               	//predisposizione della rubrica per salvataggio nuovo contatto
+					var sitoGruppoSamed = siteService.getSite("amministrazione");
+					var contactLists = null;
+					if(sitoGruppoSamed) {
+						var dataLists = sitoGruppoSamed.getContainer("dataLists");
+						if(dataLists) {
+							var contactLists = dataLists.childByNamePath("AgendaUtentiEsterni");
+						}
+					}
+	               
+					//spedizione della email se settato l'indirizzo degli utenti esterni	
+					var indirizziEmail = String(gswe_externalUsersEmails).trim();
+					logger.log(indirizziEmail);
+					if(indirizziEmail != 'null'){
+						var indirizziEmail = indirizziEmail.substr(1, indirizziEmail.length - 2);
+						arrayEmails = indirizziEmail.split(";");
+						for(var i = 0; i < arrayEmails.length; i++){
+							if(arrayEmails[i].trim().length !== 0){
+								var destEmail = arrayEmails[i].trim();
+								var node = bpm_package.children[0].nodeRef;
+								var sendAsEmailAction = actions.create("send-email-with-attachments");
+								sendAsEmailAction.parameters["to"] = destEmail;
+								sendAsEmailAction.parameters["template"] = companyhome.childByNamePath("Dizionario Dati/Modelli di e-mail/Notifica Workflow/wf-email-cstm_it.html.ftl").nodeRef;
+								sendAsEmailAction.parameters["message_text"] = gswe_externalUsersBodyEmails.toString();
+								sendAsEmailAction.parameters["workflowDescription"] = bpm_workflowDescription;
+								sendAsEmailAction.parameters["workflowPriority"] = bpm_workflowPriority;
+								sendAsEmailAction.parameters["workflowDueDate"] = bpm_workflowDueDate;						
+								sendAsEmailAction.parameters["workflowPackage"] = bpm_package;
+								sendAsEmailAction.execute(node);
+								logger.log("sending email to: " + destEmail);
+								
+								if(contactLists){
+									var boolInsert=true;
+									for(j = 0; j < contactLists.children.length; j++){
+										var contactPresent = contactLists.children[j].properties["dl:contactEmail"];
+										//logger.log(contactPresent);
+										//logger.log("confronto " + arrayEmails[i] + " con " + contactPresent);
+										if(destEmail == contactPresent.trim()){
+											//logger.log(destEmail + "è uguale a : " +contactPresent.trim());
+											boolInsert=false; 
+										} 
+									}if(boolInsert) {
+										var contact = contactLists.createNode(null, "dl:contact");
+										contact.properties["dl:contactEmail"] = destEmail;
+										contact.save();
+										logger.log("ho inserito: " +destEmail);
+									}
+								}
+							}
+						}
+					}
+						
+						
+					//settaggio della data di promemoria
+					execution.setVariable('dataPromemoria', utils.toISO8601(new Date()));
+					execution.setVariable('spedireEmailPromemoria', false);
+					
+					//test timer
+					//execution.setVariable('dataAttualeTemp', utils.toISO8601(new Date()));
+					
+					if(bpm_workflowDueDate != null){
+						var nDays = 5;
+						var dataPromemoria = new Date();
+						dataPromemoria.setTime(bpm_workflowDueDate.getTime());
+						dataPromemoria.setFullYear(bpm_workflowDueDate.getYear()+1900, bpm_workflowDueDate.getMonth(), bpm_workflowDueDate.getDate() - nDays);
+						logger.log("Data di Sacdenza: " + bpm_workflowDueDate);
+						logger.log("Inizio Promemoria: " + dataPromemoria);
+						//conversione per il timer
+						dataPromemoriaIso = utils.toISO8601(dataPromemoria);
+						execution.setVariable('dataPromemoria', dataPromemoriaIso);
+						
+						var dataAttuale = new Date();
+						var timeDifference = dataPromemoria.getTime() - dataAttuale.getTime();
+						if(timeDifference >= 0) execution.setVariable('spedireEmailPromemoria', true);
+						logger.log("conteggio minuti :" + timeDifference);
+	    				//logger.log("n.giorni: " + Math.round(timeDifference/1000*60*60*24));
+						
+					}
+						
+			      //logger.log("notifica(t/f): "+ bpm_sendEMailNotifications);
+			      //logger.log("data attuale temp: "+ execution.getVariable('dataAttualeTemp'));
+                   
+	            ]]></activiti:string>
+          </activiti:field>
+        </activiti:executionListener>
+      </extensionElements>
+    </sequenceFlow>
+    <userTask id="reviewTask" name="Revisione Documento" activiti:assignee="${reviewAssignee}" activiti:formKey="wf:activitiReviewTask">
+      <extensionElements>
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string><![CDATA[if (typeof bpm_workflowDueDate != 'undefined') task.dueDate = bpm_workflowDueDate
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                        execution.setVariable("taskId", task.getId());
+                        execution.setVariable(bpm_sendEMailNotifications, true);
+                        ]]></activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+        <activiti:taskListener event="complete" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string><![CDATA[
+            			//logger.log("notifica: " + bpm_sendEMailNotifications);
+            			if(task.getVariableLocal('wf_reviewOutcome') == 'Approve') {
+            				
+            				 var emails = execution.getVariable('membersEmail');
+							 for(var i in emails) {
+								logger.log(i + " : " + emails[i]);
+								if(i == task.assignee) {delete emails[i]; logger.log("eliminato l'utente: " + task.assignee);}
+							 }
+            				 
+                             var newApprovedCount = wf_approveCount + 1;
+	                         var newApprovedPercentage = (newApprovedCount / wf_reviewerCount) * 100;
+	                         
+	                         execution.setVariable('wf_approveCount', newApprovedCount);
+	                         execution.setVariable('wf_actualPercent', newApprovedPercentage);
+                        } else {
+                            var newRejectCount = wf_rejectCount + 1;
+                            var newRejectPercentage = (newRejectCount / wf_reviewerCount) * 100;
+                            
+                            execution.setVariable('wf_rejectCount', newRejectCount);
+                            execution.setVariable('wf_actualRejectPercent', newRejectPercentage);
+                        }]]></activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:collection="wf_groupMembers" activiti:elementVariable="reviewAssignee">
+        <completionCondition>${wf_actualPercent &gt;= wf_requiredApprovePercent || wf_requiredApprovePercent &gt; (100 - wf_actualRejectPercent)}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="reviewTask" targetRef="reviewDecision"></sequenceFlow>
+    <exclusiveGateway id="reviewDecision" name="Review Decision"></exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="reviewDecision" targetRef="approved">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${wf_actualPercent >= wf_requiredApprovePercent}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="reviewDecision" targetRef="rejected"></sequenceFlow>
+    <userTask id="approved" name="Document Approved" activiti:assignee="${initiator.exists() ? initiator.properties.userName : 'admin'}" activiti:formKey="wf:approvedParallelTask">
+      <documentation>The document was reviewed and approved.</documentation>
+      <extensionElements>
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string><![CDATA[if (typeof bpm_workflowDueDate != 'undefined') task.dueDate = bpm_workflowDueDate
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                        
+                        // Set parallel review params on task, to be kept in history
+                        task.setVariableLocal('wf_reviewerCount', wf_reviewerCount);
+                        //modifica, prima era  task.setVariableLocal('wf_requiredPercent', wf_requiredPercent);
+                        task.setVariableLocal('wf_requiredPercent', 100);
+                        task.setVariableLocal('wf_actualPercent', wf_actualPercent);
+                        task.setVariableLocal('wf_approveCount', wf_approveCount);
+                        task.setVariableLocal('wf_rejectCount', wf_rejectCount);
+                        task.setVariableLocal('wf_actualRejectPercent', wf_actualRejectPercent);]]></activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="rejected" name="Document Rejected" activiti:assignee="${initiator.exists() ? initiator.properties.userName : 'admin'}" activiti:formKey="wf:rejectedParallelTask">
+      <documentation>The document was reviewed and rejected.</documentation>
+      <extensionElements>
+        <activiti:taskListener event="create" class="org.alfresco.repo.workflow.activiti.tasklistener.ScriptTaskListener">
+          <activiti:field name="script">
+            <activiti:string><![CDATA[if (typeof bpm_workflowDueDate != 'undefined') task.dueDate = bpm_workflowDueDate
+                        if (typeof bpm_workflowPriority != 'undefined') task.priority = bpm_workflowPriority;
+                        // Set parallel review params on task, to be kept in history
+                        task.setVariableLocal('wf_reviewerCount', wf_reviewerCount);
+                        //modifica, prima era  task.setVariableLocal('wf_requiredPercent', wf_requiredPercent);
+                        task.setVariableLocal('wf_requiredPercent', 100);
+                        task.setVariableLocal('wf_actualPercent', wf_actualPercent);
+                        task.setVariableLocal('wf_approveCount', wf_approveCount);
+                        task.setVariableLocal('wf_rejectCount', wf_rejectCount);
+                        task.setVariableLocal('wf_actualRejectPercent', wf_actualRejectPercent);]]></activiti:string>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="approved" targetRef="end"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="rejected" targetRef="end"></sequenceFlow>
+    <endEvent id="end"></endEvent>
+    <boundaryEvent id="boundarytimer1" name="Timer" attachedToRef="reviewTask" cancelActivity="false">
+      <timerEventDefinition>
+      	<timeCycle>R1/${dataPromemoria}/PT24H</timeCycle>
+       	<!-- test timer -->
+       	<!--  <timeCycle>R2/${dataAttualeTemp}/PT2M</timeCycle> -->
+      </timerEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="alfrescoScripttask1" name="Reminder Email" activiti:class="org.alfresco.repo.workflow.activiti.script.AlfrescoScriptDelegate">
+      <extensionElements>
+        <activiti:field name="script">
+          <activiti:string><![CDATA[
+						var emails = execution.getVariable('membersEmail');
+						//var taskID = execution.getVariable("taskId");
+							
+						//test timer
+						//if(true){	
+						if(execution.getVariable('spedireEmailPromemoria') == true){
+							logger.log("eseguo il timer e invio l'email!");
+							if(emails){
+								for(var email in emails) {
+									var mail = actions.create("mail");
+									mail.parameters.from = "info@grupposamed.com";
+									mail.parameters.to = emails[email].toString();
+									mail.parameters.subject = "Email di promemoria - Mancata visione della documentazione!";
+									var templateArgs = new Array();
+									templateArgs['workflowDescription'] = bpm_workflowDescription;
+									templateArgs['workflowPriority'] = bpm_workflowPriority;
+									templateArgs['workflowDueDate'] = bpm_workflowDueDate;
+									templateArgs['taskId'] = execution.getVariable("taskId");
+									logger.log("task id classico: " + templateArgs['taskId']);
+									
+									templateArgs['date'] = new Date();
+									var templateModel = new Array();
+									templateModel['args'] = templateArgs;
+									mail.parameters.template_model = templateModel;
+									//template
+									mail.parameters.template = companyhome.childByNamePath("Dizionario Dati/Modelli di e-mail/Notifica Workflow/wf-email-cstm_promemoria_it.html.ftl");
+									var textEmail = "Gentile utente, le ricordiamo che le è stato assegnato il seguente compito che ancora non ha eseguito:\n" +
+									" Compito: " + bpm_workflowDescription + " \n" +
+									" Scadenza: " + bpm_workflowDueDate + "\n" +
+									" Priorita':" + bpm_workflowPriority + "\n\n" +
+									"Cordiali Saluti.\n" + 
+									"Gruppo Samed";
+									mail.parameters.text = textEmail;
+									mail.execute(bpm_package);
+									logger.log("send e-mail to: " + email);
+								}
+							}
+						} else logger.log("timer scaduto oppure data di scadenza non impostata");
+            	]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow7" sourceRef="boundarytimer1" targetRef="alfrescoScripttask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_PostaInArrivo">
+    <bpmndi:BPMNPlane bpmnElement="PostaInArrivo" id="BPMNPlane_PostaInArrivo">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reviewTask" id="BPMNShape_reviewTask">
+        <omgdc:Bounds height="55.0" width="105.0" x="125.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundarytimer1" id="BPMNShape_boundarytimer1">
+        <omgdc:Bounds height="30.0" width="30.0" x="201.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="reviewDecision" id="BPMNShape_reviewDecision">
+        <omgdc:Bounds height="40.0" width="40.0" x="290.0" y="197.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="approved" id="BPMNShape_approved">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="97.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="rejected" id="BPMNShape_rejected">
+        <omgdc:Bounds height="55.0" width="105.0" x="390.0" y="297.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="35.0" width="35.0" x="555.0" y="307.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="alfrescoScripttask1" id="BPMNShape_alfrescoScripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="163.0" y="287.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="65.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="125.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="230.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="310.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="124.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="124.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="310.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="390.0" y="324.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="495.0" y="124.0"></omgdi:waypoint>
+        <omgdi:waypoint x="572.0" y="124.0"></omgdi:waypoint>
+        <omgdi:waypoint x="572.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="495.0" y="324.0"></omgdi:waypoint>
+        <omgdi:waypoint x="555.0" y="324.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="216.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="215.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

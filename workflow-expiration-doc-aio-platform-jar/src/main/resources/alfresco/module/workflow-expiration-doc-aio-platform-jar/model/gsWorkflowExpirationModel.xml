@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<model name="gswe:workfloeExpirationModel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+    <!-- Optional meta-data about the model -->
+    <description>Gruppo Samed -  Workflow Expiration Document Model</description>
+    <author>Lucia Zarbano</author>
+    <version>1.0</version>
+
+    <!-- Imports are required to allow references to definitions in other models -->
+    <imports>
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+        <import uri="http://www.alfresco.org/model/bpm/1.0" prefix="bpm" />
+ 		<import uri="http://www.alfresco.org/model/workflow/1.0" prefix="wf"/>
+ 		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+    </imports>
+
+    <!-- Introduction of new namespaces defined by this model -->
+    <namespaces>
+        <namespace uri="http://www.grupposamed.com/model/workflow/1.0" prefix="gswe" />
+    </namespaces>
+    
+    <types>
+        <!-- start task workflowparallel-->
+        <type name="gswe:startWorkflowExpiration">
+        	<parent>wf:submitGroupReviewTask</parent>
+        	
+        	<properties>
+				<property name="gswe:externalUsersEmails">
+					<title>Indirizzi email utenti esterni</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<multiple>true</multiple>
+				</property>
+				<property name="gswe:externalUsersBodyEmails">
+					<title>Testo email utenti esterni</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<multiple>false</multiple>
+				</property>
+				
+			</properties>
+		
+        	<mandatory-aspects>
+          		<aspect>bpm:groupAssignees</aspect>
+        	</mandatory-aspects>
+        </type>
+    
+    </types>
+
+</model>

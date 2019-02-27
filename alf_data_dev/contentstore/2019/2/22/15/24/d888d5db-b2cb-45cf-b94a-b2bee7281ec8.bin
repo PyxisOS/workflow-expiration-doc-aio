@@ -1,0 +1,8 @@
+<webscript> 
+	<shortname>Email Address</shortname> 
+	<description>Recuperare le email della rubrica</description> 
+	<url>/grupposamed/workflowcustom/emailaddress</url>
+	<url>/grupposamed/workflowcustom/emailaddress.json</url> 
+	<format default="json">extension</format>
+	<authentication>guest</authentication>
+</webscript>

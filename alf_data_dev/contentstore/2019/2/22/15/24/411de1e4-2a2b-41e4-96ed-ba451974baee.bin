@@ -1,0 +1,5 @@
+{"emails":[
+<#list emailsaddress as email>
+"${email}"
+<#if email_has_next>,</#if>
+</#list>]}

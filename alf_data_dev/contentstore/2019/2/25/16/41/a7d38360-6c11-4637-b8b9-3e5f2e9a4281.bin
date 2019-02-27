@@ -1,0 +1,99 @@
+<html>
+   <head>
+      <style type="text/css"><!--
+      body
+      {
+         font-family: Arial, sans-serif;
+         font-size: 14px;
+         color: #4c4c4c;
+      }
+      
+      a, a:visited
+      {
+         color: #0072cf;
+      }
+      --></style>
+   </head>
+   
+   <body bgcolor="#dddddd">
+     <#assign shareCustom="http://192.168.1.15:8080/share">-->
+     <#assign pathLogoCustom="${shareCustom}/res/components/images/app-logo-samed.png">
+      <table width="100%" cellpadding="20" cellspacing="0" border="0" bgcolor="#dddddd">
+         <tr>
+            <td width="100%" align="center">
+               <table width="70%" cellpadding="0" cellspacing="0" bgcolor="white" style="background-color: white; border: 1px solid #aaaaaa;">
+                  <tr>
+                     <td width="100%">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                           <tr>
+                              <td style="padding: 10px 30px 0px;">
+                                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                       <td>
+                                          <table cellpadding="0" cellspacing="0" border="0">
+                                             <tr>
+                                                <td>
+                                                   <div style="font-size: 22px; padding-bottom: 4px;">
+                                                     Revisione Documentazione
+                                                   </div>
+                                                   <div style="font-size: 13px;">
+                                                      ${args.date?datetime?string.full}
+                                                   </div>
+                                                </td>
+                                             </tr>
+                                          </table>
+                                          <div style="font-size: 14px; margin: 12px 0px 24px 0px; padding-top: 10px; border-top: 1px solid #aaaaaa;">
+                                             <p>Gentile Utente,</p>
+                                             <p>le ricordiamo che le è stato assegnato il seguente compito che ancora non ha eseguito.</p>
+                                             
+                                             <#if (args.workflowDescription)??>                                             
+                                             	<p><b>Compito:&nbsp;&nbsp;</b> ${args.workflowDescription}</p>                                             
+                                             </#if>
+                                             <#if (args.workflowDueDate)??>
+                                                 <p><b>Scadenza:&nbsp;&nbsp;</b>${args.workflowDueDate?date?string.full}</p>
+                                             </#if>
+                                            <#if (args.workflowPriority)??>
+                                                <p><b>Priorità:&nbsp;&nbsp;</b>
+                                                   <#if args.workflowPriority == 3>
+                                                      Bassa
+                                                   <#elseif args.workflowPriority == 2>
+                                                      Media
+                                                   <#else>
+                                                      Alta
+                                                   </#if>
+                                                </p>
+                                            </#if>
+                                            
+                                           
+                                      
+                                            <p>Cliccare su questo link per modificare il compito:</p>
+										    <p><a href="${myShareUrl}/page/task-edit?taskId=activiti$${args.taskId}"> ${myShareUrl}/page/task-edit?taskId=activiti$${args.taskId}</a>
+                                             
+                                             
+                                             <p>Cordiali saluti,<br />
+                                             Gruppo Samed ${productName!""}</p>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </table>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div style="border-top: 1px solid #aaaaaa;">&nbsp;</div>
+                              </td>
+                           </tr>
+                            <tr>
+                              <td style="padding: 10px 30px;">
+                                 <img src="${pathLogoCustom}" alt="" height="60" border="0" />
+                              </td>
+                           </tr>
+                        </table>
+                     </td>
+                  </tr>
+               </table>
+            </td>
+         </tr>
+      </table>
+   </body>
+</html>

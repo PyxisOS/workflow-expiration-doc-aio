@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<model name="pyx:workflowmodel"
+    xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+    <!-- Optional meta-data about the model -->
+    <description>Pyxis Workflow Model</description>
+    <author>Lucia Zarbano</author>
+    <version>1.0</version>
+
+    <!-- Imports are required to allow references to definitions in other models -->
+    <imports>
+        <import uri="http://www.alfresco.org/model/dictionary/1.0"
+            prefix="d" />
+        <import uri="http://www.alfresco.org/model/bpm/1.0"
+            prefix="bpm" />
+ 		<import uri="http://www.alfresco.org/model/workflow/1.0" prefix="wf"/>
+ 		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm"/>
+    </imports>
+
+    <!-- Introduction of new namespaces defined by this model -->
+    <namespaces>
+        <namespace uri="http://www.pyxisos.com/model/workflow/1.0"
+            prefix="pyx" />
+    </namespaces>
+    
+    <!--<constraints>
+    	<cosntraint name="pyx:multipleEmail" type="REGEX">
+    		<parameter><value>^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4};?)+$</value></pamater>
+    	</cosntraint>
+    <constraints>-->
+    
+    <types>
+        <!--<type name="pyx:compitoAvvioWorkflow">
+            <parent>bpm:startTask</parent>
+            <properties>
+                <property name="pyx:nomeDocumento">
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                    <multiple>true</multiple>
+                </property>
+                
+                <property name="pyx:destination">
+                    <title>Chose Destination</title>
+                    <type>d:noderef</type>
+                    <mandatory>false</mandatory>
+                </property>
+            </properties>
+            
+	        <mandatory-aspects>
+	        	<aspect>bpm:groupAssignee</aspect>
+	        </mandatory-aspects>
+	        
+        </type>-->
+        
+        <!-- start task workflowparallel-->
+        <type name="pyx:avvioWorkflowParallelo">
+        	<parent>wf:submitGroupReviewTask</parent>
+        	
+        	<properties>
+				<property name="pyx:indirizziEmail">
+					<title>Indirizzi email utenti esterni</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<multiple>true</multiple>
+				</property>
+				<property name="pyx:testoEmail">
+					<title>Testo email utenti esterni</title>
+					<type>d:text</type>
+					<mandatory>false</mandatory>
+					<multiple>false</multiple>
+				</property>
+				
+			</properties>
+			
+			
+			<associations>
+				<association name="pyx:cartellaDestinazione">
+				   <source>
+						<mandatory>true</mandatory>
+						<many>false</many>
+					</source>
+				   	<target>
+						<class>cm:folder</class>
+						<mandatory>true</mandatory>
+						<many>false</many>
+				   	</target>
+				</association>
+				
+
+         	</associations>
+         
+        	<mandatory-aspects>
+          		<aspect>bpm:groupAssignees</aspect>
+        	</mandatory-aspects>
+        </type>
+        
+       <!-- <type name="pyx:submitSerialReviewTask">
+ 			<parent>wf:submitParallelReviewTask</parent>
+ 		</type>
+ 		
+ 		<type name="pyx:activitiReviewTask">
+ 			<parent>wf:activitiReviewTask</parent>
+ 		</type>-->
+    </types>
+
+</model>

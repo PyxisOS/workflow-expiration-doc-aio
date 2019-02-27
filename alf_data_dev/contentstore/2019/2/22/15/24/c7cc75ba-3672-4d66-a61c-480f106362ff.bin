@@ -1,0 +1,26 @@
+var emailsArray = new Array();
+        //object site
+	var sitoGruppoSamed = siteService.getSite("amministrazione");
+	if(sitoGruppoSamed) {
+               //ScriptNode object
+		var dataLists = sitoGruppoSamed.getContainer("dataLists");
+		if(dataLists) { 
+	    	//var contactLists = dataLists.childByNamePath("d2f47c37-d272-40c2-87cb-03fb4a1029b3");
+            var contactLists = dataLists.childByNamePath("AgendaUtentiEsterni");
+	     	if(contactLists){emailsArray[0] = 1;
+		 		for(i = 0; i < contactLists.children.length; i++){
+					var contactEmail = contactLists.children[i].properties["dl:contactEmail"];
+                    if(contactEmail || 0 !== contactEmail.length)
+                        emailsArray.push(contactLists.children[i].properties["dl:contactEmail"]);
+				}
+			}
+		}
+	}
+
+	
+function Contatto(nome, email){
+  this.nome = email;
+  this.email = email;
+}
+
+model.emailsaddress = emailsArray;

@@ -415,6 +415,295 @@
             </form>
         </forms>
     </config>
+    
+    <config>
+		<forms>
+			<dependencies>
+			    <js src="/workflow-expiration-doc-aio-share-jar/js/EmailsValidationCustom.js" />   
+			</dependencies>
+		</forms>
+	</config>
+	
+	 <!--================================================================================================================
+       WORKFLOW CUSTOM: SCADENZA DOCUMENTO
+    =============================================================================================================-->
+	
+	<!-- workflow expiration document -->
+	<config evaluator="string-compare" condition="activiti$WorkflowExpiration">
+      <forms>
+         <form>
+            <field-visibility>
+               <show id="bpm:workflowDescription" />
+               <!--<show id="bpm:sendEMailNotifications" />-->
+               <show id="packageItems" />
+               <show id="transitions" />
+               <show id="bpm:workflowDueDate" />
+               <show id="bpm:workflowPriority" />
+               <!--<show id="bpm:groupAssignee" />-->
+               <show id="bpm:groupAssignees" />
+               <!--<show id="wf:requiredApprovePercent" />-->
+               <show id="gswe:externalUsersEmails" />
+			   <show id="gswe:externalUsersBodyEmails" />
+            </field-visibility>
+            <appearance>
+               <set id="" appearance="title" label-id="workflow.set.general" />
+               <!--<set id="assignee" appearance="title" label-id="workflow.set.assignee" />-->
+               <set id="assegnatari" appearance="title" label-id="Gruppo/i Assegnatario/i" />
+               <set id="items" appearance="title" label-id="workflow.set.items" />
+               <set id="progress" appearance="title" label-id="workflow.set.task.progress" />
+              
+               <set id="other" appearance="title" label-id="workflow.set.other" />
+               <set id="utentiEsterni" appearance="title" label-id="Utenti esterni" />
+               
+               <field id="bpm:workflowDescription" label-id="Oggetto del Compito">
+                  <control template="/org/alfresco/components/form/controls/textarea.ftl">
+                     <control-param name="style">width: 95%</control-param>
+                  </control>
+               </field>
+               
+               <field id="bpm:groupAssignee">
+               		<control template='/org/alfresco/components/form/controls/hidden.ftl' />
+               	</field>
+               
+            	<!--<field id="bpm:groupAssignee" set="assignee" mandatory="true"/>-->
+            	<field id="bpm:groupAssignees" set="assegnatari" mandatory="true"/>
+            	
+            	 <!--<field id="wf:requiredApprovePercent" label-id="workflow.field.requiredApprovePercent" set="assignee">
+					 <control template="/org/alfresco/components/form/controls/percentage-approve.ftl">
+						 <control-param name="minValue">1</control-param>
+						 <control-param name="maxValue">100</control-param>
+					 </control>
+				</field>-->
+            	<field id="packageItems" set="items" mandatory="true" />
+                <field id="workflowDueDate" set="progress" mandatory="true" />
+                <field id="bpm:workflowPriority" label-id="workflow.field.priority">
+          			<control template="/org/alfresco/components/form/controls/workflow/priority.ftl" />
+        		</field>
+               	<!--<field id="bpm:sendEMailNotifications" set="other" />-->
+				<field id="gswe:externalUsersEmails" set="utentiEsterni">
+				    <constraint-handlers>
+       					<constraint validation-handler='Alfresco.forms.validation.checkEmailValidity' event="select,blur" silent="true" message-id="Uno o più indirizzo email non validi" />
+     				</constraint-handlers>
+     				<control template="/org/alfresco/components/form/controls/SelectManyAutocomplete.ftl" />
+				</field>
+				<field id="gswe:externalUsersBodyEmails" set="utentiEsterni">
+					 <control template="/org/alfresco/components/form/controls/textarea.ftl" />
+				</field>
+            </appearance>
+         </form>
+      
+      </forms>
+    </config>
+    
+    <config evaluator='task-type' condition='gswe:startWorkflowExpiration'>
+		  <forms>
+         <form>
+            <field-visibility>
+               <show id="bpm:workflowDescription" />
+               <!--<show id="bpm:sendEMailNotifications" />-->
+               <show id="packageItems" />
+               <show id="transitions" />
+               <show id="bpm:workflowDueDate" />
+               <show id="bpm:workflowPriority" />
+               <!--<show id="bpm:groupAssignee" />-->
+               <show id="bpm:groupAssignees" />
+               <!--<show id="wf:requiredApprovePercent" />-->
+               <show id="gswe:externalUsersEmails" />
+			   <show id="gswe:externalUsersBodyEmails" />
+			
+            </field-visibility>
+            <appearance>
+               <set id="" appearance="title" label-id="workflow.set.general" />
+               <!--<set id="assignee" appearance="title" label-id="workflow.set.assignee" />-->
+               <set id="assegnatari" appearance="title" label-id="Gruppo/i Assegnatario/i" />
+               <set id="items" appearance="title" label-id="workflow.set.items" />
+               <set id="progress" appearance="title" label-id="workflow.set.task.progress" />
+              
+               <set id="other" appearance="title" label-id="workflow.set.other" />
+               <set id="utentiEsterni" appearance="title" label-id="Utenti esterni" />
+               
+               <field id="bpm:workflowDescription" label-id="Oggetto del Compito">
+                  <control template="/org/alfresco/components/form/controls/textarea.ftl">
+                     <control-param name="style">width: 95%</control-param>
+                  </control>
+               </field>
+               
+               <field id="bpm:groupAssignee">
+               		<control template='/org/alfresco/components/form/controls/hidden.ftl' />
+               	</field>
+               
+            	<!--<field id="bpm:groupAssignee" set="assignee" mandatory="true"/>-->
+            	<field id="bpm:groupAssignees" set="assegnatari" mandatory="true"/>
+            	
+            	 <!--<field id="wf:requiredApprovePercent" label-id="workflow.field.requiredApprovePercent" set="assignee">
+					 <control template="/org/alfresco/components/form/controls/percentage-approve.ftl">
+						 <control-param name="minValue">1</control-param>
+						 <control-param name="maxValue">100</control-param>
+					 </control>
+				</field>-->
+            	<field id="packageItems" set="items" mandatory="true" />
+                <field id="workflowDueDate" set="progress" mandatory="true" />
+                <field id="bpm:workflowPriority" label-id="workflow.field.priority">
+          			<control template="/org/alfresco/components/form/controls/workflow/priority.ftl" />
+        		</field>
+               	<!--<field id="bpm:sendEMailNotifications" set="other" />-->
+				<field id="gswe:externalUsersEmails" set="utentiEsterni">
+				    <constraint-handlers>
+       					<constraint validation-handler='Alfresco.forms.validation.checkEmailValidity' event="select,blur" silent="true" message-id="Uno o più indirizzo email non validi" />
+     				</constraint-handlers>
+     				<control template="/org/alfresco/components/form/controls/SelectManyAutocomplete.ftl" />
+				</field>
+				<field id="gswe:externalUsersBodyEmails" set="utentiEsterni">
+					 <control template="/org/alfresco/components/form/controls/textarea.ftl" />
+				</field>
+            </appearance>
+         </form>
+      
+      </forms>
+	</config>
+	
+	
+	
+	 <!--================================================================================================================
+       WORKFLOW CUSTOM: GESTIONE POSTA PROTOCOLLATA
+    =============================================================================================================-->
+	<config evaluator="string-compare" condition="activiti$ProtocolloPosta">
+      <forms>
+         <form>
+            <field-visibility>
+               <show id="bpm:workflowDescription" />
+               <!--<show id="bpm:sendEMailNotifications" />-->
+               <show id="packageItems" />
+               <show id="transitions" />
+               <show id="bpm:workflowDueDate" />
+               <show id="bpm:workflowPriority" />
+               <!--<show id="bpm:groupAssignee" />-->
+               <show id="bpm:groupAssignees" />
+               <!--<show id="wf:requiredApprovePercent" />-->
+               <show id="pyx:cartellaDestinazione" />
+               <show id="pyx:indirizziEmail" />
+			   <show id="pyx:testoEmail" />
+			
+            </field-visibility>
+            <appearance>
+               <set id="" appearance="title" label-id="workflow.set.general" />
+               <!--<set id="assignee" appearance="title" label-id="workflow.set.assignee" />-->
+               <set id="assegnatari" appearance="title" label-id="Gruppo/i Assegnatario/i" />
+               <set id="items" appearance="title" label-id="workflow.set.items" />
+               <set id="progress" appearance="title" label-id="workflow.set.task.progress" />
+              
+               <set id="other" appearance="title" label-id="workflow.set.other" />
+               <set id="utentiEsterni" appearance="title" label-id="Utenti esterni" />
+               
+               <field id="bpm:workflowDescription" label-id="Oggetto del Compito">
+                  <control template="/org/alfresco/components/form/controls/textarea.ftl">
+                     <control-param name="style">width: 95%</control-param>
+                  </control>
+               </field>
+               
+               <field id="bpm:groupAssignee">
+               		<control template='/org/alfresco/components/form/controls/hidden.ftl' />
+               	</field>
+               
+            	<!--<field id="bpm:groupAssignee" set="assignee" mandatory="true"/>-->
+            	<field id="bpm:groupAssignees" set="assegnatari" mandatory="true"/>
+            	
+            	 <!--<field id="wf:requiredApprovePercent" label-id="workflow.field.requiredApprovePercent" set="assignee">
+					 <control template="/org/alfresco/components/form/controls/percentage-approve.ftl">
+						 <control-param name="minValue">1</control-param>
+						 <control-param name="maxValue">100</control-param>
+					 </control>
+				</field>-->
+            	<field id="packageItems" set="items" mandatory="true" />
+            	<field id="pyx:cartellaDestinazione" set="items" label-id="Cartella di Destinazione"/>
+                <field id="workflowDueDate" set="progress" mandatory="true" />
+                <field id="bpm:workflowPriority" label-id="workflow.field.priority">
+          			<control template="/org/alfresco/components/form/controls/workflow/priority.ftl" />
+        		</field>
+               	<!--<field id="bpm:sendEMailNotifications" set="other" />-->
+				<field id="pyx:indirizziEmail" set="utentiEsterni">
+				    <constraint-handlers>
+       					<constraint validation-handler='Alfresco.forms.validation.checkEmailValidity' event="select,blur" silent="true" message-id="Uno o più indirizzo email non validi" />
+     				</constraint-handlers>
+     				<control template="/org/alfresco/components/form/controls/SelectManyAutocomplete.ftl" />
+				</field>
+				<field id="pyx:testoEmail" set="utentiEsterni">
+					 <control template="/org/alfresco/components/form/controls/textarea.ftl" />
+				</field>
+            </appearance>
+         </form>
+      
+      </forms>
+    </config>
+    
+    <config evaluator='task-type' condition='pyx:avvioWorkflowParallelo'>
+		  <forms>
+         <form>
+            <field-visibility>
+               <show id="bpm:workflowDescription" />
+               <!--<show id="bpm:sendEMailNotifications" />-->
+               <show id="packageItems" />
+               <show id="transitions" />
+               <show id="bpm:workflowDueDate" />
+               <show id="bpm:workflowPriority" />
+               <!--<show id="bpm:groupAssignee" />-->
+               <show id="bpm:groupAssignees" />
+               <!--<show id="wf:requiredApprovePercent" />-->
+               <show id="pyx:cartellaDestinazione" />
+               <show id="pyx:indirizziEmail" />
+			   <show id="pyx:testoEmail" />
+			
+            </field-visibility>
+            <appearance>
+               <set id="" appearance="title" label-id="workflow.set.general" />
+               <!--<set id="assignee" appearance="title" label-id="workflow.set.assignee" />-->
+               <set id="assegnatari" appearance="title" label-id="Gruppo/i Assegnatario/i" />
+               <set id="items" appearance="title" label-id="workflow.set.items" />
+               <set id="progress" appearance="title" label-id="workflow.set.task.progress" />
+              
+               <set id="other" appearance="title" label-id="workflow.set.other" />
+               <set id="utentiEsterni" appearance="title" label-id="Utenti esterni" />
+               
+               <field id="bpm:workflowDescription" label-id="Oggetto del Compito">
+                  <control template="/org/alfresco/components/form/controls/textarea.ftl">
+                     <control-param name="style">width: 95%</control-param>
+                  </control>
+               </field>
+               
+               <field id="bpm:groupAssignee">
+               		<control template='/org/alfresco/components/form/controls/hidden.ftl' />
+               	</field>
+               
+            	<!--<field id="bpm:groupAssignee" set="assignee" mandatory="true"/>-->
+            	<field id="bpm:groupAssignees" set="assegnatari" mandatory="true"/>
+            	
+            	 <!--<field id="wf:requiredApprovePercent" label-id="workflow.field.requiredApprovePercent" set="assignee">
+					 <control template="/org/alfresco/components/form/controls/percentage-approve.ftl">
+						 <control-param name="minValue">1</control-param>
+						 <control-param name="maxValue">100</control-param>
+					 </control>
+				</field>-->
+            	<field id="packageItems" set="items" mandatory="true" />
+            	<field id="pyx:cartellaDestinazione" set="items" label-id="Cartella di Destinazione"/>
+                <field id="workflowDueDate" set="progress" mandatory="true" />
+                <field id="bpm:workflowPriority" label-id="workflow.field.priority">
+          			<control template="/org/alfresco/components/form/controls/workflow/priority.ftl" />
+        		</field>
+               	<!--<field id="bpm:sendEMailNotifications" set="other" />-->
+				<field id="pyx:indirizziEmail" set="utentiEsterni">
+				    <constraint-handlers>
+       					<constraint validation-handler='Alfresco.forms.validation.checkEmailValidity' event="select,blur" silent="true" message-id="Uno o più indirizzo email non validi" />
+     				</constraint-handlers>
+     				<control template="/org/alfresco/components/form/controls/SelectManyAutocomplete.ftl" />
+				</field>
+				<field id="pyx:testoEmail" set="utentiEsterni">
+					 <control template="/org/alfresco/components/form/controls/textarea.ftl" />
+				</field>
+            </appearance>
+         </form>
+      
+      </forms>
+	</config>
 
 
 </alfresco-config>
