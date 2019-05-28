@@ -126,7 +126,8 @@
 						
 					//spostamento dei file nella cartella di destinazione
 					var fullPath = pyx_cartellaDestinazione.displayPath;
-					var relativePath = fullPath.substr(24) + "/" + pyx_cartellaDestinazione.name; 	
+                                        // (per la versione italiana) var relativePath = fullPath.substr(24) + "/" + pyx_cartellaDestinazione.name;
+					var relativePath = fullPath.substr(14) + "/" + pyx_cartellaDestinazione.name; 	
 					for(i = 0; i < bpm_package.children.length; i++){
 						var file =  bpm_package.children[i];
 						file.move(companyhome.childByNamePath(relativePath));
