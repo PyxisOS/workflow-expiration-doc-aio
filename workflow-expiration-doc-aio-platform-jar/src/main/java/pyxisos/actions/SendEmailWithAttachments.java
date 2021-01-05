@@ -59,7 +59,7 @@ import org.alfresco.service.cmr.repository.ChildAssociationRef;
 /**
  * Alfresco Repository Action that can send emails with file attachments.
  *
- * @author martin.bergljung@alfresco.com
+ * @author zarbano@pyxisos.com
  */
 public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
     private static Log logger = LogFactory.getLog(SendEmailWithAttachments.class);
@@ -72,30 +72,27 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
     public static final String PARAM_WORKFLOW_DUE_DATE = "workflowDueDate";
     public static final String PARAM_WORKFLOW_DESCRIPTION = "workflowDescription";
     public static final String PARAM_WORKFLOW_PACKAGE = "workflowPackage";
-
+    
+    //SMTP PARAMETERS
+    public static final String MAIL_SMTP_HOST = "mail.host";
+    public static final String MAIL_SMTP_PORT = "mail.port";
+    public static final String MAIL_SMTP_USERNAME = "mail.username";
+    public static final String MAIL_SMTP_PASSWORD = "mail.password";
+    public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+    public static final String MAIL_SMTP_FROM_DEFAULT = "mail.from.default";
+        
     /**
      * The Alfresco Service Registry that gives access to all public content services in Alfresco.
      */
     private ServiceRegistry serviceRegistry;
-    //private FileFolderService fileFolderService;
-   
+    private Properties properties;
 
-    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
-        this.serviceRegistry = serviceRegistry;
-    }
-    
-    /*public void setFileFolderService(FileFolderService fileFolderService){
-    	this.fileFolderService = fileFolderService;
-    }*/
-    
 
     @Override
     protected void addParameterDefinitions(List<ParameterDefinition> paramList) {
         for (String s : new String[]{PARAM_EMAIL_TO_NAME, PARAM_EMAIL_MESSAGE_NAME,PARAM_EMAIL_TEMPLATE_NAME, PARAM_WORKFLOW_PRIORITY, PARAM_WORKFLOW_DUE_DATE, PARAM_WORKFLOW_DESCRIPTION, PARAM_WORKFLOW_PACKAGE}) {
             paramList.add(new ParameterDefinitionImpl(s, DataTypeDefinition.TEXT, false, getParamDisplayLabel(s)));
-        }
-        //paramList.add(new ParameterDefinitionImpl(PARAM_WORKFLOW_PACKAGE2, DataTypeDefinition.ANY, false, "workflowPackage2"));
-        
+        }        
     }
 
     @Override
@@ -104,49 +101,40 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
         if (serviceRegistry.getNodeService().exists(actionedUponNodeRef) == true) {
             // Get the email properties entered via Share Form
             String to = (String) action.getParameterValue(PARAM_EMAIL_TO_NAME);
-            //String subject = (String) action.getParameterValue(PARAM_EMAIL_SUBJECT_NAME);
             String message_text = (String) action.getParameterValue(PARAM_EMAIL_MESSAGE_NAME);
             String workflowDescription = (String) action.getParameterValue(PARAM_WORKFLOW_DESCRIPTION);
             Integer workflowPriority = (Integer) action.getParameterValue(PARAM_WORKFLOW_PRIORITY);
             Date workflowDueDate = (Date) action.getParameterValue(PARAM_WORKFLOW_DUE_DATE);
             NodeRef template = (NodeRef) action.getParameterValue(PARAM_EMAIL_TEMPLATE_NAME);
-            //NodeRef workflowPackage = (NodeRef) action.getParameterValue(PARAM_WORKFLOW_PACKAGE);
-            //Serializable workflowPackage2 = action.getParameterValue(PARAM_WORKFLOW_PACKAGE);
-            
-            //creo la lista dei figli associati al bpm_package
             NodeRef bpmPackage = (NodeRef) action.getParameterValue(PARAM_WORKFLOW_PACKAGE);
             List<ChildAssociationRef> childAssocs = serviceRegistry.getNodeService().getChildAssocs(bpmPackage);
         
-        
-
-            // Get document filename
-            /*Serializable filename = serviceRegistry.getNodeService().getProperty(
-                    actionedUponNodeRef, ContentModel.PROP_NAME);
-            if (filename == null) {
-                throw new AlfrescoRuntimeException("Il nome del file è vuoto");
-            }
-            String documentName = (String) filename;*/
-            
-            
+            //GET SMTP PARAMETERS
+            String mail_host = (String)properties.getProperty(MAIL_SMTP_HOST);
+            String mail_port = (String)properties.getProperty(MAIL_SMTP_PORT);
+            final String mail_username = (String)properties.getProperty(MAIL_SMTP_USERNAME);
+            final String mail_password = (String)properties.getProperty(MAIL_SMTP_PASSWORD);
+            String mail_auth = (String)properties.getProperty(MAIL_SMTP_AUTH);
+            String mail_from_default = (String)properties.getProperty(MAIL_SMTP_FROM_DEFAULT);
+            String mail_subject = "Revisione Documentazione";
+           
 
             try {
                 // Create mail session
                 Properties mailServerProperties = new Properties();
                 mailServerProperties = System.getProperties();
-                mailServerProperties.put("mail.smtp.host", "smtp.grupposamed.com");
-                mailServerProperties.put("mail.smtp.port", "587");
-                mailServerProperties.put("mail.smtp.auth", "true");
-                mailServerProperties.put("mail.smtp.username", "refertionline@grupposamed.com");
-                mailServerProperties.put("mail.smtp.password", "Referti1");
-                
-               // Session session = Session.getDefaultInstance(mailServerProperties, null);
-                
+                mailServerProperties.put(MAIL_SMTP_HOST, mail_host);
+                mailServerProperties.put(MAIL_SMTP_PORT, mail_port);
+                mailServerProperties.put(MAIL_SMTP_AUTH, mail_auth);
+                mailServerProperties.put(MAIL_SMTP_USERNAME, mail_username);
+                mailServerProperties.put(MAIL_SMTP_PASSWORD, mail_password);
+                   
                 
                 Session session = Session.getDefaultInstance(mailServerProperties, new javax.mail.Authenticator() 
 				{
 					protected PasswordAuthentication getPasswordAuthentication() 
 					{
-						return new PasswordAuthentication("refertionline@grupposamed.com","Referti1");
+						return new PasswordAuthentication(mail_username,mail_password);
 					}
 			   	});
                 
@@ -154,28 +142,12 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
 
                 // Definiamo il messaggio email
                 Message message = new MimeMessage(session);
-                String fromAddress = "info@grupposamed.com";
+                String fromAddress = mail_from_default;
                 message.setFrom(new InternetAddress(fromAddress));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                //message.setRecipients(Message.RecipientType.CC, InternetAddress.parse("zarbano@pyxisos.com,lucia.zarbano@gmail.com"));
-                //message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("zarbano@pyxisos.com, lucia.zarbano@gmail.com"));
-                message.setSubject("Revisione Documentazione");
                 
-                
-                
-				//sistemo il body
-				//String bodyText = "Gentile utente, le è stato assegnato un compito relativo a della documentazione da visionare che trova in allegato.";
-				//bodyText = bodyText +"</br> La scadenza del compito è prevista per la seguente data:";
-				//bodyText = bodyText + "</br> La priorità del compito è la seguente:  </br> Il messaggio diretto a lei è il seguente: </br> Distinti Saluti </br> Lo staff del Gruppo Samed" ;
-				
-				
-				/*NodeRef repository = getCompanyHome();
-				String pathtemplate = "Dizionario Dati/Modelli di e-mail/Notifica Workflow/wf-email-cstm_it.html.ftl";
-            	List<String> pathElements = Arrays.asList(StringUtils.split(pathtemplate, '/'));
- 				NodeRef templateRef = this.fileFolderService.resolveNamePath(companyHome, pathElements).getNodeRef();*/
- 				
-
-				
+                message.setSubject(mail_subject);
+	
                 HashMap<String, Object> model = new HashMap<String, Object>();
                 model.put("messaggio", message_text.trim()); 
                 model.put("workflowPriority", workflowPriority);
@@ -183,17 +155,8 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
                 model.put("workflowDescription", workflowDescription.trim());
                 model.put("data", new Date());
                 String bodyText = serviceRegistry.getTemplateService().processTemplate("freemarker",template.toString(), model);   
- 				
-				
-				
-				/*HashMap<String, String> map = new HashMap<String, String>();
-				map.put("messaggio", "Ok");
-				bodyText = this.serviceRegistry.getTemplateService().processTemplate(template,map);*/
-				
-				
+
 				message.setContent(bodyText, "text/html; charset=utf-8");
-
-
 				
                 // Create the message part with body text
                 BodyPart messageBodyPart = new MimeBodyPart();
@@ -202,24 +165,6 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
                 
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(messageBodyPart);
-
-                // Create the Attachment part
-                //
-                //  Get the document content bytes
-                /*byte[] documentData = getDocumentContentBytes(actionedUponNodeRef, documentName);
-                if (documentData == null) {
-                    throw new AlfrescoRuntimeException("Document content is null");
-                }*/
-                
-                
-                //  Attach document
-               /* messageBodyPart = new MimeBodyPart();
-                messageBodyPart.setDataHandler(new DataHandler(new ByteArrayDataSource(
-                        documentData, new MimetypesFileTypeMap().getContentType(documentName))));
-                messageBodyPart.setFileName(documentName);
-                multipart.addBodyPart(messageBodyPart); */   
-                
-
 
 				//attach multiple document
 				for (ChildAssociationRef childAssoc : childAssocs) {
@@ -313,5 +258,15 @@ public class SendEmailWithAttachments extends ActionExecuterAbstractBase {
         }
 
         return documentData;
+    }
+    
+    
+    //SETTER AND GETTER
+    public void setServiceRegistry(ServiceRegistry serviceRegistry) {
+        this.serviceRegistry = serviceRegistry;
+    }
+  
+    public void setProperties(Properties properties) {
+    	this.properties = properties;
     }
 }

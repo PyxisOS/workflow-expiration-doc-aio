@@ -1972,3 +1972,550 @@ Caused by: java.lang.NullPointerException
 2019-02-27 12:08:36,144 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
 2019-02-27 12:08:36,144 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'sysAdmin' subsystem, ID: [sysAdmin, default]
 2019-02-27 12:08:36,144 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 12:59:04,897 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Using database URL 'jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;MVCC=FALSE;LOCK_MODE=0' with user 'alfresco'.
+2021-01-05 12:59:04,899 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Connected to database H2 version 1.4.190 (2015-10-11)
+2021-01-05 12:59:08,328 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V4.2-metadata-query-indexes
+2021-01-05 12:59:08,329 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.1-metadata-query-indexes
+2021-01-05 12:59:08,329 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.2-remove-jbpm-tables-from-db
+2021-01-05 12:59:12,905 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 12:59:13,027 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1] complete
+2021-01-05 12:59:15,497 INFO  [org.springframework.extensions.webscripts.TemplateProcessorRegistry] [localhost-startStop-1] Registered template processor Repository Template Processor for extension ftl
+2021-01-05 12:59:15,499 INFO  [org.springframework.extensions.webscripts.ScriptProcessorRegistry] [localhost-startStop-1] Registered script processor Repository Script Processor for extension js
+2021-01-05 12:59:17,478 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 12:59:17,506 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted] complete
+2021-01-05 12:59:17,518 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Connecting to database: jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev, UserName=ALFRESCO, H2 JDBC Driver
+2021-01-05 12:59:17,518 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Schema managed by database dialect org.hibernate.dialect.H2Dialect.
+2021-01-05 12:59:17,592 ERROR [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Schema auto-update failed
+org.alfresco.error.AlfrescoRuntimeException: 00050000 Failed to created temp file: 
+   prefix: AlfrescoSchema-H2Dialect-All_Statements-
+   suffix: .sql
+   directory: /tmp/Alfresco
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:327)
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:305)
+	at org.alfresco.repo.domain.schema.SchemaBootstrap.onBootstrap(SchemaBootstrap.java:1761)
+	at org.springframework.extensions.surf.util.AbstractLifecycleBean.onApplicationEvent(AbstractLifecycleBean.java:56)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEventInternal(SafeApplicationEventMulticaster.java:214)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEvent(SafeApplicationEventMulticaster.java:185)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:334)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:482)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:410)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at org.alfresco.web.app.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:70)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.io.IOException: Permesso negato
+	at java.io.UnixFileSystem.createFileExclusively(Native Method)
+	at java.io.File.createTempFile(File.java:2024)
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:319)
+	... 21 more
+2021-01-05 12:59:17,595 ERROR [org.springframework.web.context.ContextLoader] [localhost-startStop-1] Context initialization failed
+org.alfresco.error.AlfrescoRuntimeException: 00050001 Schema auto-update failed
+	at org.alfresco.repo.domain.schema.SchemaBootstrap.onBootstrap(SchemaBootstrap.java:1836)
+	at org.springframework.extensions.surf.util.AbstractLifecycleBean.onApplicationEvent(AbstractLifecycleBean.java:56)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEventInternal(SafeApplicationEventMulticaster.java:214)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEvent(SafeApplicationEventMulticaster.java:185)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:334)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:954)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:482)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:410)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at org.alfresco.web.app.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:70)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:4939)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5434)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.alfresco.error.AlfrescoRuntimeException: 00050000 Failed to created temp file: 
+   prefix: AlfrescoSchema-H2Dialect-All_Statements-
+   suffix: .sql
+   directory: /tmp/Alfresco
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:327)
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:305)
+	at org.alfresco.repo.domain.schema.SchemaBootstrap.onBootstrap(SchemaBootstrap.java:1761)
+	... 19 more
+Caused by: java.io.IOException: Permesso negato
+	at java.io.UnixFileSystem.createFileExclusively(Native Method)
+	at java.io.File.createTempFile(File.java:2024)
+	at org.alfresco.util.TempFileProvider.createTempFile(TempFileProvider.java:319)
+	... 21 more
+2021-01-05 12:59:17,765 WARN  [org.springframework.web.context.support.XmlWebApplicationContext] [localhost-startStop-1] Exception thrown from ApplicationListener handling ContextClosedEvent
+java.lang.NullPointerException
+	at org.alfresco.repo.workflow.activiti.ActivitiEngineInitializer.onShutdown(ActivitiEngineInitializer.java:65)
+	at org.springframework.extensions.surf.util.AbstractLifecycleBean.onApplicationEvent(AbstractLifecycleBean.java:67)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEventInternal(SafeApplicationEventMulticaster.java:214)
+	at org.alfresco.repo.management.SafeApplicationEventMulticaster.multicastEvent(SafeApplicationEventMulticaster.java:190)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:334)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1055)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1016)
+	at org.springframework.web.context.ContextLoader.closeWebApplicationContext(ContextLoader.java:586)
+	at org.springframework.web.context.ContextLoaderListener.contextDestroyed(ContextLoaderListener.java:143)
+	at org.apache.catalina.core.StandardContext.listenerStop(StandardContext.java:4980)
+	at org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:5626)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:232)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:160)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1559)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1549)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2021-01-05 12:59:17,931 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Stopping 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 12:59:17,931 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Stopped 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 12:59:18,220 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Stopping 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 12:59:18,220 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Stopped 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:05:34,536 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Using database URL 'jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;MVCC=FALSE;LOCK_MODE=0' with user 'alfresco'.
+2021-01-05 13:05:34,549 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Connected to database H2 version 1.4.190 (2015-10-11)
+2021-01-05 13:05:37,933 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V4.2-metadata-query-indexes
+2021-01-05 13:05:37,933 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.1-metadata-query-indexes
+2021-01-05 13:05:37,933 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.2-remove-jbpm-tables-from-db
+2021-01-05 13:05:42,148 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:05:42,269 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1] complete
+2021-01-05 13:05:44,176 INFO  [org.springframework.extensions.webscripts.TemplateProcessorRegistry] [localhost-startStop-1] Registered template processor Repository Template Processor for extension ftl
+2021-01-05 13:05:44,178 INFO  [org.springframework.extensions.webscripts.ScriptProcessorRegistry] [localhost-startStop-1] Registered script processor Repository Script Processor for extension js
+2021-01-05 13:05:46,468 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:05:46,497 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted] complete
+2021-01-05 13:05:46,510 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Connecting to database: jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev, UserName=ALFRESCO, H2 JDBC Driver
+2021-01-05 13:05:46,510 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Schema managed by database dialect org.hibernate.dialect.H2Dialect.
+2021-01-05 13:05:46,623 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] No changes were made to the schema.
+2021-01-05 13:05:47,226 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:05:47,264 ERROR [org.alfresco.repo.content.transform.magick.AbstractImageMagickContentTransformerWorker] [localhost-startStop-1] ImageMagickContentTransformerWorker not available: 00050016 Failed to perform ImageMagick transformation: 
+Execution result: 
+   os:         Linux
+   command:    ./ImageMagick/bin/convert /tmp/Alfresco/ImageMagickContentTransformerWorker_init_source_2598614232334037355.gif -strip /tmp/Alfresco/ImageMagickContentTransformerWorker_init_target_9181666347670590557.png
+   succeeded:  false
+   exit code:  1
+   out:        
+   err:        Cannot run program "./ImageMagick/bin/convert": error=2, File o directory non esistente
+2021-01-05 13:05:47,265 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'thirdparty' subsystem, ID: [thirdparty, default] complete
+2021-01-05 13:05:47,266 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:05:47,556 WARN  [org.alfresco.util.OpenOfficeConnectionTester] [localhost-startStop-1] An initial OpenOffice connection could not be established.
+2021-01-05 13:05:47,558 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'OOoDirect' subsystem, ID: [OOoDirect, default] complete
+2021-01-05 13:05:47,559 INFO  [org.alfresco.repo.admin.ConfigurationChecker] [localhost-startStop-1] The root data directory ('dir.root') is: /home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev
+2021-01-05 13:05:47,560 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:05:47,742 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Search' subsystem, ID: [Search, managed, solr4] complete
+2021-01-05 13:05:47,761 INFO  [org.alfresco.repo.admin.patch.PatchExecuter] [localhost-startStop-1] Checking for patches to apply ...
+2021-01-05 13:05:47,925 INFO  [org.alfresco.repo.admin.patch.PatchExecuter] [localhost-startStop-1] No patches were required.
+2021-01-05 13:05:48,004 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Found 3 module package(s).
+2021-01-05 13:05:48,039 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'alfresco-share-services' version 5.2.0.
+2021-01-05 13:05:48,201 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'alfresco-trashcan-cleaner' version 2.2.
+2021-01-05 13:05:48,213 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'workflow-expiration-doc-aio-platform-jar' version 1.0-SNAPSHOT.
+2021-01-05 13:05:48,218 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:05:48,455 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 13:05:48,473 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'sysAdmin' subsystem, ID: [sysAdmin, default] complete
+2021-01-05 13:05:48,489 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'fileServers' subsystem, ID: [fileServers, default] complete
+2021-01-05 13:05:48,489 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:05:48,572 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'imap' subsystem, ID: [imap, default] complete
+2021-01-05 13:05:48,572 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:05:48,799 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'email' subsystem, ID: [email, outbound] complete
+2021-01-05 13:05:48,799 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:05:48,843 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'email' subsystem, ID: [email, inbound] complete
+2021-01-05 13:05:48,843 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:05:48,860 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Subscriptions' subsystem, ID: [Subscriptions, default] complete
+2021-01-05 13:05:48,876 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:05:48,957 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Synchronization' subsystem, ID: [Synchronization, default] complete
+2021-01-05 13:05:49,020 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Alfresco JVM - v1.8.0_91-8u91-b14-3ubuntu1~15.10.1-b14; maximum heap size 873,000MB
+2021-01-05 13:05:49,020 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Server Mode :UNKNOWN
+2021-01-05 13:05:49,023 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Alfresco Content Services started (Community). Current version: 5.2.0 (r135134-b14) schema 10.005. Originally installed version: 5.2.0 (r135134-b14) schema 10.005.
+2021-01-05 13:05:49,042 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:05:49,478 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default] complete
+2021-01-05 13:05:49,481 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:05:49,506 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Replication' subsystem, ID: [Replication, default] complete
+2021-01-05 13:05:49,782 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,788 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-6] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,787 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,780 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-5] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,784 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-3] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,783 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-7] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,780 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-4] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,796 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] eseguo il timer e invio l'email!
+2021-01-05 13:05:49,802 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] task id classico: 6211
+2021-01-05 13:05:49,803 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] task id classico: 1336
+2021-01-05 13:05:49,802 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-7] task id classico: 6044
+2021-01-05 13:05:49,802 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-4] task id classico: 4236
+2021-01-05 13:05:49,807 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-3] task id classico: 1936
+2021-01-05 13:05:49,809 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] task id classico: 1736
+2021-01-05 13:05:49,812 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-5] task id classico: 4604
+2021-01-05 13:05:49,814 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-6] task id classico: 4836
+2021-01-05 13:05:53,746 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,746 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,746 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-7] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,748 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,748 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] task id classico: 6211
+2021-01-05 13:05:53,749 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] task id classico: 1736
+2021-01-05 13:05:53,749 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-7] task id classico: 6044
+2021-01-05 13:05:53,747 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] task id classico: 1336
+2021-01-05 13:05:53,751 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-3] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,752 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-4] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,751 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-6] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,754 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-5] send e-mail to: lucia.zarbano
+2021-01-05 13:05:53,754 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-4] task id classico: 4236
+2021-01-05 13:05:53,755 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-6] task id classico: 4836
+2021-01-05 13:05:53,759 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-3] task id classico: 1936
+2021-01-05 13:05:53,760 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-5] task id classico: 4604
+2021-01-05 13:05:55,895 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] send e-mail to: agata.fassari
+2021-01-05 13:05:55,895 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-5] send e-mail to: agata.fassari
+2021-01-05 13:05:55,895 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] send e-mail to: agata.fassari
+2021-01-05 13:05:55,898 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-4] send e-mail to: agata.fassari
+2021-01-05 13:05:55,901 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-6] send e-mail to: agata.fassari
+2021-01-05 13:05:55,904 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] send e-mail to: agata.fassari
+2021-01-05 13:05:55,956 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-3] send e-mail to: agata.fassari
+2021-01-05 13:05:55,956 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-7] send e-mail to: agata.fassari
+2021-01-05 13:05:55,995 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] eseguo il timer e invio l'email!
+2021-01-05 13:05:55,996 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] task id classico: 2098
+2021-01-05 13:05:56,011 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] eseguo il timer e invio l'email!
+2021-01-05 13:05:56,012 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] task id classico: 3815
+2021-01-05 13:05:56,032 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] eseguo il timer e invio l'email!
+2021-01-05 13:05:56,033 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] task id classico: 4036
+2021-01-05 13:05:57,567 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:05:57,568 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:05:57,568 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:05:57,759 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] send e-mail to: lucia.zarbano
+2021-01-05 13:05:57,759 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] send e-mail to: lucia.zarbano
+2021-01-05 13:05:57,760 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] task id classico: 2098
+2021-01-05 13:05:57,759 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] send e-mail to: lucia.zarbano
+2021-01-05 13:05:57,760 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] task id classico: 3815
+2021-01-05 13:05:57,760 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] task id classico: 4036
+2021-01-05 13:05:59,125 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:05:59,126 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:05:59,126 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:05:59,130 INFO  [org.springframework.extensions.webscripts.AbstractRuntimeContainer] [localhost-startStop-1] Initialised Repository Web Script Container (in 4400.317ms)
+2021-01-05 13:05:59,146 INFO  [org.springframework.extensions.webscripts.TemplateProcessorRegistry] [localhost-startStop-1] Registered template processor freemarker for extension ftl
+2021-01-05 13:05:59,148 INFO  [org.springframework.extensions.webscripts.ScriptProcessorRegistry] [localhost-startStop-1] Registered script processor javascript for extension js
+2021-01-05 13:05:59,356 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-1] send e-mail to: agata.fassari
+2021-01-05 13:05:59,422 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-8] send e-mail to: agata.fassari
+2021-01-05 13:05:59,423 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [pool-19-thread-2] send e-mail to: agata.fassari
+2021-01-05 13:06:00,502 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:06:00,502 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:06:00,502 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:06:00,566 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:06:00,566 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:06:00,566 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:06:00,614 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:06:00,614 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:06:00,615 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:06:00,619 INFO  [org.springframework.extensions.webscripts.AbstractRuntimeContainer] [localhost-startStop-1] Initialised Public Api Web Script Container (in 1442.7627ms)
+2021-01-05 13:06:00,663 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:06:00,663 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:06:00,663 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:07:00,232 WARN  [org.alfresco.util.OpenOfficeConnectionTester] [DefaultScheduler_Worker-3] Error trying to query Open Office version information. OpenOffice.org's ConfigurationRegistry not implemented in this version of OOo. This should not affect the operation of OOo.
+2021-01-05 13:07:00,233 INFO  [org.alfresco.util.OpenOfficeConnectionTester] [DefaultScheduler_Worker-3] The OpenOffice connection was re-established.
+2021-01-05 13:07:27,815 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.get.js - NodeRef: alfresco://company/home Query:  +@cm\:modified:[2020\-12\-29T00\:00\:00.000 TO 2021\-1\-5T23\:59\:59.999] +@cm\:modifier:"admin" +TYPE:"cm:content" -TYPE:"cm:systemfolder" -TYPE:"fm:forums" -TYPE:"fm:forum" -TYPE:"fm:topic" -TYPE:"fm:post" +(TYPE:"content" OR TYPE:"app:filelink" OR TYPE:"folder")
+2021-01-05 13:07:29,419 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.get.js - query results: 0
+2021-01-05 13:07:29,422 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.get.js - totalRecords: 0
+2021-01-05 13:07:59,963 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Generating form for item:
+2021-01-05 13:07:59,963 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] 	kind = workflow
+2021-01-05 13:07:59,964 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] 	id = activiti$ProtocolloPosta
+2021-01-05 13:07:59,964 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] fields = bpm:workflowDescription,packageItems,transitions,bpm:workflowDueDate,bpm:workflowPriority,bpm:groupAssignees,pyx:cartellaDestinazione,pyx:indirizziEmail,pyx:testoEmail
+2021-01-05 13:07:59,992 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] formModel = {"item": "api\/workflow-definitions\/activiti$ProtocolloPosta:5:6340", "submissionUrl": "\/api\/workflow\/activiti%24ProtocolloPosta\/formprocessor", "type": "activiti$ProtocolloPosta", "fields": "[Lorg.alfresco.repo.forms.FieldDefinition;@41252dde", "formData": {"assoc_packageItems": "", "prop_bpm_workflowPriority": 2, "assoc_bpm_groupAssignees": "", "assoc_pyx_cartellaDestinazione": "", "prop_bpm_packageActionGroup": "add_package_item_actions", "prop_bpm_packageItemActionGroup": "start_package_item_actions"}}
+2021-01-05 13:08:08,567 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] children type = authority
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableType = cm:authorityContainer
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsFilterType = null
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSearchTerm = py
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsMaxResults = 100
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsXPath = null
+2021-01-05 13:08:08,570 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableMimeType = null
+2021-01-05 13:08:08,571 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] lastPathElement = children
+2021-01-05 13:08:08,571 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] Finding groups matching pattern: py
+2021-01-05 13:08:08,591 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] found group = GROUP_PYXIS
+2021-01-05 13:08:08,608 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] Found 1 results
+2021-01-05 13:08:11,979 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] children type = node
+2021-01-05 13:08:11,979 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableType = cm:content
+2021-01-05 13:08:11,979 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsFilterType = null
+2021-01-05 13:08:11,979 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSearchTerm = 
+2021-01-05 13:08:11,980 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsMaxResults = 100
+2021-01-05 13:08:11,980 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsXPath = null
+2021-01-05 13:08:11,980 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableMimeType = null
+2021-01-05 13:08:11,980 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] lastPathElement = children
+2021-01-05 13:08:12,099 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] Found 7 results
+2021-01-05 13:08:13,411 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] children type = node
+2021-01-05 13:08:13,411 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableType = cm:content
+2021-01-05 13:08:13,412 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsFilterType = null
+2021-01-05 13:08:13,412 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSearchTerm = 
+2021-01-05 13:08:13,412 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsMaxResults = 100
+2021-01-05 13:08:13,412 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsXPath = null
+2021-01-05 13:08:13,412 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableMimeType = null
+2021-01-05 13:08:13,413 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] lastPathElement = children
+2021-01-05 13:08:13,488 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] Found 2 results
+2021-01-05 13:08:17,013 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] children type = node
+2021-01-05 13:08:17,013 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableType = cm:folder
+2021-01-05 13:08:17,013 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsFilterType = null
+2021-01-05 13:08:17,013 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSearchTerm = 
+2021-01-05 13:08:17,013 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsMaxResults = 100
+2021-01-05 13:08:17,014 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsXPath = null
+2021-01-05 13:08:17,014 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] argsSelectableMimeType = null
+2021-01-05 13:08:17,014 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] lastPathElement = children
+2021-01-05 13:08:17,041 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-18] Found 7 results
+2021-01-05 13:08:18,319 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] children type = node
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsSelectableType = cm:folder
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsFilterType = null
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsSearchTerm = 
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsMaxResults = 100
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsXPath = null
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] argsSelectableMimeType = null
+2021-01-05 13:08:18,325 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] lastPathElement = children
+2021-01-05 13:08:18,348 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-6] Found 2 results
+2021-01-05 13:08:21,599 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] children type = node
+2021-01-05 13:08:21,599 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsSelectableType = cm:folder
+2021-01-05 13:08:21,599 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsFilterType = null
+2021-01-05 13:08:21,600 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsSearchTerm = 
+2021-01-05 13:08:21,600 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsMaxResults = 100
+2021-01-05 13:08:21,600 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsXPath = null
+2021-01-05 13:08:21,600 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] argsSelectableMimeType = null
+2021-01-05 13:08:21,600 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] lastPathElement = children
+2021-01-05 13:08:21,613 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-5] Found 7 results
+2021-01-05 13:08:40,234 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-8] doclist.lib.js - NodeRef: alfresco://company/shared Query: +PATH:"/app:company_home/app:shared/*" -TYPE:"cm:systemfolder" -TYPE:"fm:forums" -TYPE:"fm:forum" -TYPE:"fm:topic" -TYPE:"fm:post" 
+2021-01-05 13:08:40,251 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-8] doclist.lib.js - query results: 2
+2021-01-05 13:08:40,251 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-8] doclist.lib.js - totalRecords: 2
+2021-01-05 13:08:43,543 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] Generating form for item:
+2021-01-05 13:08:43,543 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] 	kind = type
+2021-01-05 13:08:43,543 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] 	id = cm:folder
+2021-01-05 13:08:43,543 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] fields = cm:name,cm:title,cm:description
+2021-01-05 13:08:43,543 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] forcedFields = cm:title,cm:description
+2021-01-05 13:08:43,545 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] formModel = {"item": "\/api\/classes\/cm_folder", "submissionUrl": "\/api\/type\/cm%3Afolder\/formprocessor", "type": "cm:folder", "fields": "[Lorg.alfresco.repo.forms.FieldDefinition;@6f9fe3b4", "formData": {}}
+2021-01-05 13:08:46,441 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] json form submission for item:
+2021-01-05 13:08:46,441 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] 	kind = type
+2021-01-05 13:08:46,441 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] 	id = cm:folder
+2021-01-05 13:08:46,656 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.lib.js - NodeRef: alfresco://company/shared Query: +PATH:"/app:company_home/app:shared/*" -TYPE:"cm:systemfolder" -TYPE:"fm:forums" -TYPE:"fm:forum" -TYPE:"fm:topic" -TYPE:"fm:post" 
+2021-01-05 13:08:46,663 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.lib.js - query results: 3
+2021-01-05 13:08:46,664 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-3] doclist.lib.js - totalRecords: 3
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] children type = node
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsSelectableType = cm:folder
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsFilterType = null
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsSearchTerm = 
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsMaxResults = 100
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsXPath = null
+2021-01-05 13:08:50,623 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] argsSelectableMimeType = null
+2021-01-05 13:08:50,624 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] lastPathElement = children
+2021-01-05 13:08:50,640 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-4] Found 7 results
+2021-01-05 13:08:51,864 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] children type = node
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsSelectableType = cm:folder
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsFilterType = null
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsSearchTerm = 
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsMaxResults = 100
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsXPath = null
+2021-01-05 13:08:51,865 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] argsSelectableMimeType = null
+2021-01-05 13:08:51,866 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] lastPathElement = children
+2021-01-05 13:08:51,875 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] Found 3 results
+2021-01-05 13:08:58,276 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] json form submission for item:
+2021-01-05 13:08:58,277 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] 	kind = workflow
+2021-01-05 13:08:58,277 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] 	id = activiti$ProtocolloPosta
+2021-01-05 13:08:58,424 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] [lucia.zarbano@gmail.com; ]
+2021-01-05 13:08:58,455 DEBUG [pyxisos.actions.SendEmailWithAttachments] [http-bio-8080-exec-19] Organigramma.png
+2021-01-05 13:09:01,297 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] sending email to: lucia.zarbano@gmail.com
+2021-01-05 13:09:01,339 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] Data di Sacdenza: Fri Jan 29 00:00:00 CET 2021
+2021-01-05 13:09:01,339 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] Inizio Promemoria: Sun Jan 24 2021 00:00:00 GMT+0100 (CET)
+2021-01-05 13:09:01,340 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-19] conteggio minuti :1594258660
+2021-01-05 13:11:22,304 ERROR [org.alfresco.util.SocketOpenOfficeConnection] [MessageDispatcher] disconnected unexpectedly
+2021-01-05 13:11:22,524 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:11:22,525 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:11:22,555 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:11:22,555 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:11:22,555 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:11:22,556 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:11:22,556 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:11:22,557 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:11:22,563 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:11:22,563 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:11:22,567 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:11:22,568 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:11:22,568 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:11:22,568 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:11:22,570 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:11:22,571 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:11:22,583 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:11:22,584 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:11:22,594 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:11:22,595 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:11:23,128 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:11:23,629 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:11:23,706 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:11:23,707 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:11:23,707 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:11:23,708 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:11:23,708 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 13:11:23,708 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 13:12:16,223 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Using database URL 'jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=10000;MVCC=FALSE;LOCK_MODE=0' with user 'alfresco'.
+2021-01-05 13:12:16,224 INFO  [org.alfresco.repo.admin] [localhost-startStop-1] Connected to database H2 version 1.4.190 (2015-10-11)
+2021-01-05 13:12:19,691 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V4.2-metadata-query-indexes
+2021-01-05 13:12:19,691 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.1-metadata-query-indexes
+2021-01-05 13:12:19,691 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Ignoring script patch (post-Hibernate): patch.db-V5.2-remove-jbpm-tables-from-db
+2021-01-05 13:12:23,996 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:12:24,125 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1] complete
+2021-01-05 13:12:26,221 INFO  [org.springframework.extensions.webscripts.TemplateProcessorRegistry] [localhost-startStop-1] Registered template processor Repository Template Processor for extension ftl
+2021-01-05 13:12:26,224 INFO  [org.springframework.extensions.webscripts.ScriptProcessorRegistry] [localhost-startStop-1] Registered script processor Repository Script Processor for extension js
+2021-01-05 13:12:28,287 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:12:28,316 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted] complete
+2021-01-05 13:12:28,328 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Connecting to database: jdbc:h2:/home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev/h2_data/alf_dev, UserName=ALFRESCO, H2 JDBC Driver
+2021-01-05 13:12:28,328 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] Schema managed by database dialect org.hibernate.dialect.H2Dialect.
+2021-01-05 13:12:28,398 INFO  [org.alfresco.repo.domain.schema.SchemaBootstrap] [localhost-startStop-1] No changes were made to the schema.
+2021-01-05 13:12:28,929 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:12:28,969 ERROR [org.alfresco.repo.content.transform.magick.AbstractImageMagickContentTransformerWorker] [localhost-startStop-1] ImageMagickContentTransformerWorker not available: 00050016 Failed to perform ImageMagick transformation: 
+Execution result: 
+   os:         Linux
+   command:    ./ImageMagick/bin/convert /tmp/Alfresco/ImageMagickContentTransformerWorker_init_source_5128916503445646734.gif -strip /tmp/Alfresco/ImageMagickContentTransformerWorker_init_target_6007441985084765179.png
+   succeeded:  false
+   exit code:  1
+   out:        
+   err:        Cannot run program "./ImageMagick/bin/convert": error=2, File o directory non esistente
+2021-01-05 13:12:28,971 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'thirdparty' subsystem, ID: [thirdparty, default] complete
+2021-01-05 13:12:28,971 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:12:29,625 WARN  [org.alfresco.util.OpenOfficeConnectionTester] [localhost-startStop-1] An initial OpenOffice connection could not be established.
+2021-01-05 13:12:29,626 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'OOoDirect' subsystem, ID: [OOoDirect, default] complete
+2021-01-05 13:12:29,628 INFO  [org.alfresco.repo.admin.ConfigurationChecker] [localhost-startStop-1] The root data directory ('dir.root') is: /home/utente/ALFRESCO-CODE/ALFRESCO-SDK3-PACKAGES/PACKAGES/PACKAGES_2/workflow-expiration-doc-aio/alf_data_dev
+2021-01-05 13:12:29,628 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:12:29,820 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Search' subsystem, ID: [Search, managed, solr4] complete
+2021-01-05 13:12:29,835 INFO  [org.alfresco.repo.admin.patch.PatchExecuter] [localhost-startStop-1] Checking for patches to apply ...
+2021-01-05 13:12:29,976 INFO  [org.alfresco.repo.admin.patch.PatchExecuter] [localhost-startStop-1] No patches were required.
+2021-01-05 13:12:29,991 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Found 3 module package(s).
+2021-01-05 13:12:30,008 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'alfresco-share-services' version 5.2.0.
+2021-01-05 13:12:30,017 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'alfresco-trashcan-cleaner' version 2.2.
+2021-01-05 13:12:30,026 INFO  [org.alfresco.repo.module.ModuleServiceImpl] [localhost-startStop-1] Starting module 'workflow-expiration-doc-aio-platform-jar' version 1.0-SNAPSHOT.
+2021-01-05 13:12:30,031 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:12:30,276 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 13:12:30,293 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'sysAdmin' subsystem, ID: [sysAdmin, default] complete
+2021-01-05 13:12:30,311 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'fileServers' subsystem, ID: [fileServers, default] complete
+2021-01-05 13:12:30,311 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:12:30,381 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'imap' subsystem, ID: [imap, default] complete
+2021-01-05 13:12:30,381 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:12:30,498 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'email' subsystem, ID: [email, outbound] complete
+2021-01-05 13:12:30,498 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:12:30,538 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'email' subsystem, ID: [email, inbound] complete
+2021-01-05 13:12:30,539 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:12:30,555 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Subscriptions' subsystem, ID: [Subscriptions, default] complete
+2021-01-05 13:12:30,571 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:12:30,673 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Synchronization' subsystem, ID: [Synchronization, default] complete
+2021-01-05 13:12:30,685 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Alfresco JVM - v1.8.0_91-8u91-b14-3ubuntu1~15.10.1-b14; maximum heap size 873,000MB
+2021-01-05 13:12:30,685 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Server Mode :UNKNOWN
+2021-01-05 13:12:30,688 INFO  [org.alfresco.service.descriptor.DescriptorService] [localhost-startStop-1] Alfresco Content Services started (Community). Current version: 5.2.0 (r135134-b14) schema 10.005. Originally installed version: 5.2.0 (r135134-b14) schema 10.005.
+2021-01-05 13:12:30,694 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:12:30,858 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default] complete
+2021-01-05 13:12:30,859 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Starting 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:12:30,875 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-1] Startup of 'Replication' subsystem, ID: [Replication, default] complete
+2021-01-05 13:12:35,154 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:12:35,157 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:12:35,157 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:12:36,643 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:12:36,643 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:12:36,643 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:12:36,648 INFO  [org.springframework.extensions.webscripts.AbstractRuntimeContainer] [localhost-startStop-1] Initialised Repository Web Script Container (in 4156.3867ms)
+2021-01-05 13:12:36,661 INFO  [org.springframework.extensions.webscripts.TemplateProcessorRegistry] [localhost-startStop-1] Registered template processor freemarker for extension ftl
+2021-01-05 13:12:36,663 INFO  [org.springframework.extensions.webscripts.ScriptProcessorRegistry] [localhost-startStop-1] Registered script processor javascript for extension js
+2021-01-05 13:12:38,000 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 401 Web Scripts (+0 failed), 550 URLs
+2021-01-05 13:12:38,000 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 1 Package Description Documents (+0 failed) 
+2021-01-05 13:12:38,000 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:12:38,069 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:12:38,069 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:12:38,070 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:12:38,128 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:12:38,129 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:12:38,129 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [localhost-startStop-1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:12:38,132 INFO  [org.springframework.extensions.webscripts.AbstractRuntimeContainer] [localhost-startStop-1] Initialised Public Api Web Script Container (in 1433.5872ms)
+2021-01-05 13:12:38,173 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 13 Web Scripts (+0 failed), 102 URLs
+2021-01-05 13:12:38,173 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Package Description Documents (+0 failed) 
+2021-01-05 13:12:38,173 INFO  [org.springframework.extensions.webscripts.DeclarativeRegistry] [asynchronouslyRefreshedCacheThreadPool1] Registered 0 Schema Description Documents (+0 failed) 
+2021-01-05 13:13:49,259 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-14] Generating form for item:
+2021-01-05 13:13:49,261 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-14] 	kind = workflow
+2021-01-05 13:13:49,261 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-14] 	id = activiti$ProtocolloPosta
+2021-01-05 13:13:49,263 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-14] fields = bpm:workflowDescription,packageItems,transitions,bpm:workflowDueDate,bpm:workflowPriority,bpm:groupAssignees,pyx:cartellaDestinazione,pyx:indirizziEmail,pyx:testoEmail
+2021-01-05 13:13:49,292 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-14] formModel = {"item": "api\/workflow-definitions\/activiti$ProtocolloPosta:6:6608", "submissionUrl": "\/api\/workflow\/activiti%24ProtocolloPosta\/formprocessor", "type": "activiti$ProtocolloPosta", "fields": "[Lorg.alfresco.repo.forms.FieldDefinition;@334dd58f", "formData": {"assoc_packageItems": "", "prop_bpm_workflowPriority": 2, "assoc_bpm_groupAssignees": "", "assoc_pyx_cartellaDestinazione": "", "prop_bpm_packageActionGroup": "add_package_item_actions", "prop_bpm_packageItemActionGroup": "start_package_item_actions"}}
+2021-01-05 13:13:57,805 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] children type = authority
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableType = cm:authorityContainer
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsFilterType = null
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSearchTerm = py
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsMaxResults = 100
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsXPath = null
+2021-01-05 13:13:57,806 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableMimeType = null
+2021-01-05 13:13:57,807 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] lastPathElement = children
+2021-01-05 13:13:57,807 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Finding groups matching pattern: py
+2021-01-05 13:13:57,825 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] found group = GROUP_PYXIS
+2021-01-05 13:13:57,841 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Found 1 results
+2021-01-05 13:14:00,165 WARN  [org.alfresco.util.OpenOfficeConnectionTester] [DefaultScheduler_Worker-6] Error trying to query Open Office version information. OpenOffice.org's ConfigurationRegistry not implemented in this version of OOo. This should not affect the operation of OOo.
+2021-01-05 13:14:00,165 INFO  [org.alfresco.util.OpenOfficeConnectionTester] [DefaultScheduler_Worker-6] The OpenOffice connection was re-established.
+2021-01-05 13:14:01,170 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] children type = node
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableType = cm:content
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsFilterType = null
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSearchTerm = 
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsMaxResults = 100
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsXPath = null
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableMimeType = null
+2021-01-05 13:14:01,171 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] lastPathElement = children
+2021-01-05 13:14:01,233 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Found 7 results
+2021-01-05 13:14:02,264 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] children type = node
+2021-01-05 13:14:02,264 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableType = cm:content
+2021-01-05 13:14:02,264 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsFilterType = null
+2021-01-05 13:14:02,264 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSearchTerm = 
+2021-01-05 13:14:02,264 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsMaxResults = 100
+2021-01-05 13:14:02,265 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsXPath = null
+2021-01-05 13:14:02,265 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableMimeType = null
+2021-01-05 13:14:02,266 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] lastPathElement = children
+2021-01-05 13:14:02,355 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Found 2 results
+2021-01-05 13:14:05,036 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] children type = node
+2021-01-05 13:14:05,036 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableType = cm:folder
+2021-01-05 13:14:05,036 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsFilterType = null
+2021-01-05 13:14:05,036 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSearchTerm = 
+2021-01-05 13:14:05,037 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsMaxResults = 100
+2021-01-05 13:14:05,037 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsXPath = null
+2021-01-05 13:14:05,037 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableMimeType = null
+2021-01-05 13:14:05,038 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] lastPathElement = children
+2021-01-05 13:14:05,058 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Found 7 results
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] children type = node
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableType = cm:folder
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsFilterType = null
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSearchTerm = 
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsMaxResults = 100
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsXPath = null
+2021-01-05 13:14:06,120 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] argsSelectableMimeType = null
+2021-01-05 13:14:06,121 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] lastPathElement = children
+2021-01-05 13:14:06,133 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Found 2 results
+2021-01-05 13:14:11,904 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] json form submission for item:
+2021-01-05 13:14:11,904 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] 	kind = workflow
+2021-01-05 13:14:11,905 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] 	id = activiti$ProtocolloPosta
+2021-01-05 13:14:12,115 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] [lucia.zarbano@gmail.com; ]
+2021-01-05 13:14:12,178 DEBUG [pyxisos.actions.SendEmailWithAttachments] [http-bio-8080-exec-11] Organigramma-bassa-risoluzione.png
+2021-01-05 13:14:14,724 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] sending email to: lucia.zarbano@gmail.com
+2021-01-05 13:14:14,777 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Data di Sacdenza: Fri Jan 29 00:00:00 CET 2021
+2021-01-05 13:14:14,784 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] Inizio Promemoria: Sun Jan 24 2021 00:00:00 GMT+0100 (CET)
+2021-01-05 13:14:14,786 DEBUG [org.alfresco.repo.jscript.ScriptLogger] [http-bio-8080-exec-11] conteggio minuti :1593945215
+2021-01-05 13:14:39,267 ERROR [org.alfresco.util.SocketOpenOfficeConnection] [MessageDispatcher] disconnected unexpectedly
+2021-01-05 13:14:39,481 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:14:39,482 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Replication' subsystem, ID: [Replication, default]
+2021-01-05 13:14:39,512 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:14:39,512 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Subscriptions' subsystem, ID: [Subscriptions, default]
+2021-01-05 13:14:39,512 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:14:39,512 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'email' subsystem, ID: [email, inbound]
+2021-01-05 13:14:39,512 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:14:39,524 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'fileServers' subsystem, ID: [fileServers, default]
+2021-01-05 13:14:39,529 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:14:39,530 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'ActivitiesFeed' subsystem, ID: [ActivitiesFeed, default]
+2021-01-05 13:14:39,531 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:14:39,532 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'OOoDirect' subsystem, ID: [OOoDirect, default]
+2021-01-05 13:14:39,532 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:14:39,532 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'ContentStore' subsystem, ID: [ContentStore, managed, unencrypted]
+2021-01-05 13:14:39,533 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:14:39,533 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Synchronization' subsystem, ID: [Synchronization, default]
+2021-01-05 13:14:39,541 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:14:39,541 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'email' subsystem, ID: [email, outbound]
+2021-01-05 13:14:39,548 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:14:39,549 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'imap' subsystem, ID: [imap, default]
+2021-01-05 13:14:40,093 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:14:40,361 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Search' subsystem, ID: [Search, managed, solr4]
+2021-01-05 13:14:40,424 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:14:40,425 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'thirdparty' subsystem, ID: [thirdparty, default]
+2021-01-05 13:14:40,426 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:14:40,426 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'Authentication' subsystem, ID: [Authentication, managed, alfrescoNtlm1]
+2021-01-05 13:14:40,426 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopping 'sysAdmin' subsystem, ID: [sysAdmin, default]
+2021-01-05 13:14:40,426 INFO  [org.alfresco.repo.management.subsystems.ChildApplicationContextFactory] [localhost-startStop-2] Stopped 'sysAdmin' subsystem, ID: [sysAdmin, default]

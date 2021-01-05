@@ -126,8 +126,17 @@
 						
 					//spostamento dei file nella cartella di destinazione
 					var fullPath = pyx_cartellaDestinazione.displayPath;
-                                        // (per la versione italiana) var relativePath = fullPath.substr(24) + "/" + pyx_cartellaDestinazione.name;
-					var relativePath = fullPath.substr(14) + "/" + pyx_cartellaDestinazione.name; 	
+                    var pathHomeCompany = "";
+                    
+                    if(fullPath.substr(0,23) === "/Home page dell'azienda"){
+                        //inizio dal 24-esimo elemento
+                    	pathHomeCompany = fullPath.substr(24);
+                    } else if(fullPath.substr(0,13) === "/Company Home"){
+                    	//inizio dal 14-esimo elemento
+                    	pathHomeCompany = fullPath.substr(14);
+                    }
+                    
+					var relativePath = pathHomeCompany + "/" + pyx_cartellaDestinazione.name; 	
 					for(i = 0; i < bpm_package.children.length; i++){
 						var file =  bpm_package.children[i];
 						file.move(companyhome.childByNamePath(relativePath));

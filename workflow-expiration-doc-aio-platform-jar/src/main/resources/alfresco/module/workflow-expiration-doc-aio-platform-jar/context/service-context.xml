@@ -26,6 +26,9 @@
 			<property name="serviceRegistry">
 				<ref bean="ServiceRegistry" />
 			</property>
+			<property name="properties">
+				<ref bean="global-properties" />
+			</property>
 		</bean>
 		
 		<bean id="move-replaced" class="pyxisos.actions.MoveReplaceActionExecuter" parent="action-executer">
